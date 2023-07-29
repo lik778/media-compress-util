@@ -1,6 +1,7 @@
+// @ts-nocheck
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   corePlugins: {
     preflight: false
   },
