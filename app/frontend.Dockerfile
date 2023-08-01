@@ -1,5 +1,6 @@
 FROM node:18-alpine as build-application
 
+
 WORKDIR /app
 
 COPY . .

@@ -27,3 +27,16 @@
       - 该命令会根据docker-compose.yml 配置文件分别构建前后端镜像
     + 二、`docker-compose up`
       - 该命令会将构建好的前后端镜像统一启动起来
+
+#### 三、使用构建好的docker
+  + 前端镜像地址：https://hub.docker.com/repository/docker/copymanager/compress-media-front
+    **使用方式：**
+    - `docker pull copymanager/compress-media-front:latest`
+    - `docker tag copymanager/compress-media-front:latest my_new_image_name:latest`（my_new_image_name可以按照自己的方式来命名）
+    - `docker run -d -p 8080:3000 --name compress-media-sever-front  my_new_image_name:latest`
+  + 后端镜像地址：https://hub.docker.com/repository/docker/copymanager/compress-media-backend/general
+    - `docker pull copymanager/compress-media-backend:latest`
+    - `docker tag copymanager/compress-media-backend:latest my_new_image_name:latest`（my_new_image_name可以按照自己的方式来命名）
+    - `docker run -d -p 30005:3005 --name compress-media-server-backend  my_new_image_name:latest`
+
+  
