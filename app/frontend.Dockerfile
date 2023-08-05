@@ -1,18 +1,26 @@
-FROM node:18-alpine as build-application
+FROM copymanager/base-node-app:18.15.0 as build-application
+# node:18-alpine
 
+# WORKDIR /home/app/client
 
-WORKDIR /app
+# 注意：alpine 版本是基于Alpine系统，不能直接使用curl，安装pnpm可以采用npm安装或安装curl后再使用下面安装pnpm
+# node:18.15.0 是基于debian系统可以直接使用curl安装pnpm
+# RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
 
-COPY . .
+# COPY package.json pnpm-lock.yaml ./
 
+# RUN pnpm -v && pnpm install --no-frozen-lockfile
 
-RUN npm install -g cnpm --registry=https://registry.npm.taobao.org && \
-    cnpm install && \
-    npm run build
+# COPY . /home/app/client
+
+# RUN pnpm run build \
+#   && rm -rf node_modules \
+#   && pnpm prune --prod
+
 
 FROM nginx:alpine
 
-COPY --from=build-application /app/build /usr/share/nginx/html
+COPY --from=build-application /home/app/build /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
