@@ -3,14 +3,13 @@ FROM node:18-alpine as build-application
 
 WORKDIR /app
 
+COPY package.json .
+# RUN npm install -g cnpm --registry=https://registry.npm.taobao.org && \
+#     cnpm install
+RUN npm install --registry=https://registry.npm.taobao.org
+
 COPY . .
-
-# RUN npm install --platform=linuxmusl --arch=arm64v8 sharp
-
-# 这里可以考虑使用 cnpm 或 npm 安装依赖，根据实际情况选择
-RUN npm install -g cnpm --registry=https://registry.npm.taobao.org && \
-    cnpm install && \
-    npm run build
+RUN npm run build
 
 # 第二阶段：生成最终镜像
 FROM node:18-alpine
